@@ -70,7 +70,13 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post= Post::find($id);
+
+        if($post){
+
+            return view('admin.posts.edit', compact('post'));
+        }
+        abort(404, 'Fumetto non trovato');
     }
 
     /**
@@ -80,9 +86,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $data = $request->all();
+        $data['slug'] = Post::generateSlug($data['title']);
+        $post->update($data);
+
+        return redirect()->route('admin.posts.show',$post);
     }
 
     /**
@@ -91,8 +101,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect()->route('admin.posts.index')->with('deleted','Deleted sucsessfully');
     }
 }
