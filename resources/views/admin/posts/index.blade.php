@@ -16,12 +16,12 @@
 
             <tbody>
 
-                @foreach ($post as $pos)
+                @foreach ($posts as $post)
                     <tr>
-                        <th scope="row">{{$pos->id}}</th>
-                        <td>{{$pos->title}}</td>
+                        <th scope="row">{{$post->id}}</th>
+                        <td>{{$post->title}}</td>
                         <td>
-                            <a class="btn btn-success" href="#">Show</a>
+                            <a class="btn btn-success" href="{{ route('admin.posts.show',$post)}}">Show</a>
                             <a class="btn btn-primary" href="#">Edit</a>
                             <a class="btn btn-danger" href="#">Delete</a>
                         </td>
