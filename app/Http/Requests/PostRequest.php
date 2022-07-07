@@ -13,7 +13,7 @@ class PostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,7 @@ class PostRequest extends FormRequest
     {
         return [
             'title' => 'required | min:5 | max:60 ',
-            'content' => 'required | max:1048',
+            'content' => 'required | min:3 | max:255',
         ];
     }
     public function messages()
@@ -36,6 +36,7 @@ class PostRequest extends FormRequest
             'title.max' => 'Max characters admissed :max',
             'content.required' => 'There\'s an empty field',
             'content.max' => 'Massimo characters admissed :max',
+            'content.min' => 'Insert at least :min characters',
         ];
     }
 }
